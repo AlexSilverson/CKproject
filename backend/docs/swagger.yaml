@@ -1,0 +1,133 @@
+definitions:
+  entity.ReminderDto:
+    properties:
+      before:
+        items:
+          type: integer
+        type: array
+      msg:
+        type: string
+      when:
+        type: string
+    required:
+    - before
+    - msg
+    - when
+    type: object
+  entity.UserDto:
+    properties:
+      login:
+        type: string
+      password:
+        type: string
+    required:
+    - login
+    - password
+    type: object
+info:
+  contact: {}
+  description: This is a sample swagger for second RCSP lab
+  termsOfService: http://swagger.io/terms/
+  title: 2lab API
+  version: "1.0"
+paths:
+  /aunt/addremind:
+    post:
+      consumes:
+      - application/json
+      description: AddReminders
+      parameters:
+      - description: jwt token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Request of Creating User Object
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ReminderDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: AddReminders
+      tags:
+      - Reminders
+  /login:
+    get:
+      consumes:
+      - application/json
+      description: Login User by jso in detail
+      parameters:
+      - description: Login
+        in: header
+        name: login
+        required: true
+        type: string
+      - description: Password
+        in: header
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Login User by json
+      tags:
+      - Users
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Add User by jso in detail
+      parameters:
+      - description: Request of Creating User Object
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.UserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Add User by json
+      tags:
+      - Users
+swagger: "2.0"
