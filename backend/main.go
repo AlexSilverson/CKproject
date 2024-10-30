@@ -10,9 +10,9 @@ import (
 	"github.com/gofiber/swagger"
 )
 
-// @title			2lab API
+// @title			CK project API
 // @version		1.0
-// @description	This is a sample swagger for second RCSP lab
+// @description	This is a sample swagger for CK project API
 // @termsOfService	http://swagger.io/terms/
 func main() {
 	app := fiber.New()
@@ -25,5 +25,21 @@ func main() {
 	controllers.AddUser(app, userService)
 	controllers.LoginUser(app, userService)
 	controllers.AddReminds(app, remindersSrvice, userService)
+	controllers.GetAllUsersReminds(app, remindersSrvice)
+	controllers.UpdateReminds(app, remindersSrvice, userService)
+	controllers.DeleteRemind(app, remindersSrvice)
 	app.Listen(":8081")
 }
+
+/*
+{
+  "before": [
+    1, 3, 5, 7, 30
+  ],
+  "msg": "second testing message",
+  "when": "2024-11-29"
+}
+
+alexsilverson@yandex.ru
+20012001
+*/

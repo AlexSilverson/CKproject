@@ -5,12 +5,15 @@ definitions:
         items:
           type: integer
         type: array
+      id:
+        type: integer
       msg:
         type: string
       when:
         type: string
     required:
     - before
+    - id
     - msg
     - when
     type: object
@@ -26,9 +29,9 @@ definitions:
     type: object
 info:
   contact: {}
-  description: This is a sample swagger for second RCSP lab
+  description: This is a sample swagger for CK project API
   termsOfService: http://swagger.io/terms/
-  title: 2lab API
+  title: CK project API
   version: "1.0"
 paths:
   /aunt/addremind:
@@ -64,6 +67,92 @@ paths:
           schema:
             type: string
       summary: AddReminders
+      tags:
+      - Reminders
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: jwt token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Request of Creating User Object
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/entity.ReminderDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      tags:
+      - Reminders
+  /aunt/user:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: jwt token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      tags:
+      - Reminders
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: jwt token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Getting Reminds by token
       tags:
       - Reminders
   /login:
