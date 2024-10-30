@@ -46,3 +46,9 @@
   border-radius: 16px;
   padding: 10%;
 }
+
+.inputBox {
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  padding: 20px;
+}

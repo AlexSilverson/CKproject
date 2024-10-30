@@ -3,7 +3,6 @@ export interface RemindInfo {
     userId: number;
     before: string;
     message: string;
-    date: string;
-    isDone: boolean;
+    date: number;
 
 }

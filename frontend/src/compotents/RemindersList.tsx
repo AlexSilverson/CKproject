@@ -9,7 +9,6 @@ interface Props {
 }
 const RemindersList:React.FC<Props> = ({reminders, setReminds}:Props) =>{
     return <div className="tasks">
-        <h3>In progress</h3>
         {reminders.map(remind =>(
             <ReminderCard remind={remind} key={remind.id} reminds={reminders} setReminds={setReminds}
             />

@@ -20,7 +20,7 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
     const [editReminder,setEditReminder] = useState<string>(remind.message);
     const [open, setOpen] = useState<boolean>(false);
     const [editDescription,setEditDescription] = useState<boolean>(false);
-    const [editDescriptionText,setEditDescriptionText] = useState<string>(remind.date);
+    const [editDescriptionText,setEditDescriptionText] = useState<number>(remind.date);
 
     const handleDelete = (id:number) => {
         setReminds(reminds.filter((reminder)=>reminder.id!==id))
@@ -60,7 +60,7 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
     }, [edit])
 
     return (
-        <form className={remind.isDone ? "reminderCardDone" : "reminderCard"} onSubmit={(e) => handleEdit(e, remind.id)}>
+        <form className="reminderCard" onSubmit={(e) => handleEdit(e, remind.id)}>
             <div className="reminderInfo">
                 {edit  && open? (
                         <div className="reminderEdit">
@@ -77,17 +77,14 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
             </div>
 
             <div className="reminderCardActions">
-
-                {(open &&!remind.isDone) && (
                     <span className="actions" onClick={() => {
-                        if (!edit && !remind.isDone) {
+                        if (!edit) {
                             setEdit(!edit);
                         }
                     }
                     }>
                          <MdOutlineModeEdit/>
                         </span>
-                )}
 
                 <span className="actions" onClick={() => handleDelete(remind.id)}>
                     <MdOutlineCancelPresentation/>
@@ -107,9 +104,9 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
                     <div className="description">
                         <h4>Description</h4>
                         <div className="descriptionEditButton">
-                            {(!remind.isDone && open) ? (
+                            {(open) ? (
                                     <span className="actions" id="editButton" onClick={() => {
-                                        if (!editDescription && !remind.isDone) {
+                                        if (!editDescription) {
                                             setEditDescription(!editDescription);
                                         }
                                     }
@@ -126,12 +123,12 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
                         </div>
                         {!editDescription ? (
                                 <p className="reminderDescription"
-                                   style={remind.isDone ? ({color: 'white'}) : ({color: 'black'})}>{remind.message}</p>
+                                   style={{color: 'black'}}>{remind.message}</p>
                             )
                             : (
 
                                 <textarea value={editDescriptionText} ref={editDesRef} onChange={(e) => {
-                                    setEditDescriptionText(e.target.value);
+                                    setEditDescriptionText(+e.target.value);
                                 }} className="reminderDescriptionEdit"/>
                             )
                         }
@@ -142,7 +139,7 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
 
 
             <button className="submitButton" type="submit" style={
-                open && !remind.isDone && editDescription ? {
+                open && editDescription ? {
                         display: 'flex', color: 'red', backgroundColor: 'white'
                     }
                     : {display: 'none'}
