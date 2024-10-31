@@ -23,6 +23,7 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
 
     const handleDelete = (id:number) => {
         setReminds(reminds.filter((reminder)=>reminder.id!==id))
+        //TODO delete at backend
     }
 
     const handleEdit = (e:React.FormEvent,id:number) => {
@@ -35,7 +36,21 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
             )
         );
         console.log("asdfsadf");
-
+        fetch('http://localhost:8081/aunt/addremind',
+            {
+                method: 'POST',
+                headers: {
+                    'token': localStorage.getItem('jwt') as string,
+                },
+                body: JSON.stringify(remind),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         setEdit(false);
         setEditDescription(false);
         // console.log("nefr");
