@@ -1,6 +1,9 @@
 package services
 
-import "net/smtp"
+import (
+	"fmt"
+	"net/smtp"
+)
 
 type mailService struct {
 	From     string
@@ -16,7 +19,9 @@ type MailService interface {
 func (m mailService) SendMail(to []string, subject string, body string) error {
 	address := m.Host + ":" + m.Port
 	message := []byte(subject + body)
+
 	auth := smtp.PlainAuth("", m.From, m.Password, m.Host)
+	fmt.Println(address, "\n", auth, "\n", m.From, "\n", to, "\n", string(message), "/n")
 	err := smtp.SendMail(address, auth, m.From, to, message)
 	return err
 }

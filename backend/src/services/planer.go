@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/AlexSilverson/CKproject/src/entity"
@@ -20,7 +21,7 @@ type PlanerService interface {
 }
 
 func (p planerService) DailyService(mailService MailService) error {
-	fmt.Println("here")
+	fmt.Println(mailService)
 	ctx := context.Background()
 	start := time.Now()
 	interval := time.Second * 10
@@ -34,6 +35,14 @@ func (p planerService) DailyService(mailService MailService) error {
 		erdb := p.db.Raw(string(Query)).Scan(&emailTexst)
 		if erdb.Error != nil {
 			panic(erdb.Error)
+		}
+
+		for _, u := range emailTexst {
+			msg := []byte("To: " + u.Email + "\r\n" +
+				"Subject: Ку-ку. Событие совсем скоро\r\n" +
+				"\r\n" +
+				u.Msg + " через " + strconv.Itoa(int(u.Time)) + " дня" + "\r\n")
+			mailService.SendMail([]string{u.Email}, "", string(msg))
 		}
 		fmt.Println("result sql: ", emailTexst, t)
 	}

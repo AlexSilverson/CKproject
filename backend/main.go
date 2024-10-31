@@ -31,7 +31,7 @@ func main() {
 	controllers.UpdateReminds(app, remindersSrvice, userService)
 	controllers.DeleteRemind(app, remindersSrvice)
 	mailService := services.NewMailSevice("alexsilverson2001@gmail.com", "efvf tntz oygc esfa", "smtp.gmail.com", "587")
-	mailService.SendMail([]string{"Alexsilverson@yandex.ru"}, "fdfdfdf", "fffffffffffffffffffffffffff")
+	mailService.SendMail([]string{"alexsilverson@yandex.ru"}, "fdfdfdf", "fffffffffffffffffffffffffff")
 	planer := services.NewPlanerSevice(db)
 
 	go planer.DailyService(mailService)
