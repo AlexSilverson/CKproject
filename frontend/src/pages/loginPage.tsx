@@ -1,16 +1,38 @@
 import {Button, Form, Input} from 'antd';
 // import React from 'react';
 import type { FormProps } from 'antd';
+import {useState} from "react";
 
 
 type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
+    username: string;
+    password: string;
 };
 
+
+
+
 const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
+    const [jwt, setJwt] = useState<string>();
+    fetch('http://localhost:8081/login', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            login: values.username,
+            password: values.password,
+        }),
+    })
+        .then(response => response.json())
+        .then(data => {
+            setJwt(`${data.result}`);
+            console.log(data.result, jwt);
+        })
+        .catch(error => {
+            console.error(error);
+            setJwt('Произошла ошибка при выполнении поиска');
+        });
 };
 
 const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -18,6 +40,9 @@ const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
 };
 
 function LoginPage(){
+
+    const [password, setPassword] = useState<string>('');
+    const [username, setUsername] = useState<string>('');
     return(
         <div className="loginForm">
 
@@ -38,7 +63,7 @@ function LoginPage(){
                     name="username"
                     rules={[{ required: true, message: 'Введите имя пользователя' }]}
                 >
-                    <Input />
+                    <Input value={username} onChange={(e) => setUsername(e.target.value)} />
                 </Form.Item>
 
                 <Form.Item<FieldType>
@@ -46,7 +71,7 @@ function LoginPage(){
                     name="password"
                     rules={[{ required: true, message: 'Please input your password!' }]}
                 >
-                    <Input.Password />
+                    <Input.Password value={password} onChange={(e) => setPassword(e.target.value)} />
                 </Form.Item>
 
                 {/*<Form.Item<FieldType>*/}

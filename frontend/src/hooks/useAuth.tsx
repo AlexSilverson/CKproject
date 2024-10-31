@@ -2,6 +2,9 @@ import { createContext, useContext} from "react";
 // import { useNavigate } from "react-router-dom";
 // import { useLocalStorage } from './useLocalStorage';
 const AuthContext = createContext();
+
+
+
 //TODO : аунтефикация
 
 // export const AuthProvider = ({ children }) => {

@@ -6,3 +6,8 @@ export interface RemindInfo {
     date: string;
 
 }
+
+export interface User {
+    id: number;
+    jwt: string;
+}

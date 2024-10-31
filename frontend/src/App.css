@@ -65,7 +65,7 @@ body {
   position: fixed;
   top:0;
   left:0;
-  z-index: 100;
+  z-index: 90;
   border-bottom: #888888 1px solid;
   justify-content: center;
 }
@@ -355,4 +355,13 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+header {
+  position: fixed;
+  top:0;
+  z-index: 100 ;
+  left:50px;
+  color: #1a1a1a;
+
 }
