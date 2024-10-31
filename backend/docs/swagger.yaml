@@ -5,17 +5,17 @@ definitions:
         items:
           type: integer
         type: array
+      date:
+        type: string
       id:
         type: integer
       msg:
         type: string
-      when:
-        type: string
     required:
     - before
+    - date
     - id
     - msg
-    - when
     type: object
   entity.UserDto:
     properties:

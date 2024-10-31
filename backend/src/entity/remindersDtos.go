@@ -10,7 +10,7 @@ type ReminderDto struct {
 	Id     uint   `json:"id" validate:"required"`
 	Msg    string `json:"msg" validate:"required"`
 	Before []uint `json:"before" validate:"required"`
-	When   string `json:"when" validate:"required"`
+	When   string `json:"date" validate:"required"`
 }
 
 func (u ReminderDto) MapToRemiders(id uint, user User) (Remind, []Befores) {

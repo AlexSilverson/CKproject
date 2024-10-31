@@ -304,9 +304,9 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "before",
+                "date",
                 "id",
-                "msg",
-                "when"
+                "msg"
             ],
             "properties": {
                 "before": {
@@ -315,13 +315,13 @@ const docTemplate = `{
                         "type": "integer"
                     }
                 },
+                "date": {
+                    "type": "string"
+                },
                 "id": {
                     "type": "integer"
                 },
                 "msg": {
-                    "type": "string"
-                },
-                "when": {
                     "type": "string"
                 }
             }
