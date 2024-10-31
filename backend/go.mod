@@ -9,6 +9,7 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.5.5 // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
+	github.com/stephenafamo/kronika v0.0.0-20220912224312-79c8aa498e30 // indirect
 	github.com/swaggo/files/v2 v2.0.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
 )

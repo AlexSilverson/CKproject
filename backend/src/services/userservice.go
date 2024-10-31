@@ -57,7 +57,7 @@ func (r userService) Login(user entity.User) (string, error) {
 		return "", errors.New("invalid password")
 	}
 
-	exTime := time.Now().Add(5 * time.Minute)
+	exTime := time.Now().Add(40 * time.Minute)
 	//fmt.Println("here in Login token 1")
 
 	claims := &entity.Claims{

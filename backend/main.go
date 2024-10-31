@@ -15,7 +15,7 @@ import (
 // @description	This is a sample swagger for CK project API
 // @termsOfService	http://swagger.io/terms/
 func main() {
-
+	doneChan := make(chan string)
 	app := fiber.New()
 	db := postgres.Init()
 	app.Get("/swagger/*", swagger.HandlerDefault)
@@ -23,38 +23,21 @@ func main() {
 	auntGroup.Use(middleware.Auntification)
 	userService := services.NewUserSevice(db)
 	remindersSrvice := services.NewRemindersSevice(db)
-	mailService := services.NewMailSevice("alexsilverson2001@gmail.com", "efvf tntz oygc esfa", "smtp.gmail.com", "587")
+
 	controllers.AddUser(app, userService)
 	controllers.LoginUser(app, userService)
 	controllers.AddReminds(app, remindersSrvice, userService)
 	controllers.GetAllUsersReminds(app, remindersSrvice)
 	controllers.UpdateReminds(app, remindersSrvice, userService)
 	controllers.DeleteRemind(app, remindersSrvice)
+	mailService := services.NewMailSevice("alexsilverson2001@gmail.com", "efvf tntz oygc esfa", "smtp.gmail.com", "587")
 	mailService.SendMail([]string{"Alexsilverson@yandex.ru"}, "fdfdfdf", "fffffffffffffffffffffffffff")
+	planer := services.NewPlanerSevice(db)
+
+	go planer.DailyService(mailService)
 	app.Listen(":8081")
-	/*
-		from := "alexsilverson2001@gmail.com"
+	<-doneChan
 
-		password := "efvf tntz oygc esfa"
-
-		toEmailAddress := "Alexsilverson@yandex.ru"
-		to := []string{toEmailAddress}
-
-		host := "smtp.gmail.com"
-		port := "587"
-		address := host + ":" + port
-
-		subject := "Subject: This is the subject of the mail\n"
-		body := "This is the body of the mail"
-		message := []byte(subject + body)
-
-		auth := smtp.PlainAuth("", from, password, host)
-
-		err := smtp.SendMail(address, auth, from, to, message)
-		if err != nil {
-			panic(err)
-		}
-	*/
 }
 
 /*
