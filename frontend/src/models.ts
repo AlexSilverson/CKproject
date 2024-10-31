@@ -1,8 +1,8 @@
 export interface RemindInfo {
     id: number;
     userId: number;
-    before: string;
+    before: number[];
     message: string;
-    date: number;
+    date: string;
 
 }

@@ -21,7 +21,7 @@ function LoginPage(){
     return(
         <div className="loginForm">
 
-            <h3 style={{color: 'black', justifySelf: "start"}}>HBDReminder</h3>
+            <h3 style={{color: 'black', justifySelf: "start"}}>MemoMail</h3>
             <Form
                 name="basic"
                 labelCol={{ span: 8 }}

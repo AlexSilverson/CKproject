@@ -12,9 +12,11 @@ const RemindersList:React.FC<Props> = ({reminders, setReminds}:Props) =>{
         {reminders.map(remind =>(
             <ReminderCard remind={remind} key={remind.id} reminds={reminders} setReminds={setReminds}
             />
+
         ))}
 
     </div>;
+
 };
 
 export default RemindersList;

@@ -20,7 +20,7 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
     const [editReminder,setEditReminder] = useState<string>(remind.message);
     const [open, setOpen] = useState<boolean>(false);
     const [editDescription,setEditDescription] = useState<boolean>(false);
-    const [editDescriptionText,setEditDescriptionText] = useState<number>(remind.date);
+    const [editDescriptionText,setEditDescriptionText] = useState<string>(remind.date);
 
     const handleDelete = (id:number) => {
         setReminds(reminds.filter((reminder)=>reminder.id!==id))
@@ -128,7 +128,7 @@ const ReminderCard = ({remind,reminds,setReminds}: Props) =>{
                             : (
 
                                 <textarea value={editDescriptionText} ref={editDesRef} onChange={(e) => {
-                                    setEditDescriptionText(+e.target.value);
+                                    setEditDescriptionText( e.target.value);
                                 }} className="reminderDescriptionEdit"/>
                             )
                         }

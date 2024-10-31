@@ -1,13 +1,17 @@
-// import React, {useRef} from "react";
+import React from "react";
 import "../App.css"
-import {Button, Form, Input, Select, Space} from "antd";
+import {Button, Checkbox, Col, Form, Input, Row, Space} from "antd";
 
 
-const { Option } = Select;
+// const { Option } = Select;
 
 interface Props {
     message: string;
+    date: string;
+    befores: number[];
+    setBefores: React.Dispatch<React.SetStateAction<number[]>>;
     setMessage: React.Dispatch<React.SetStateAction<string>>;
+    setDate: React.Dispatch<React.SetStateAction<string>>;
     handleCreate: (e: React.FormEvent)=>void
 }
 const layout = {
@@ -21,16 +25,21 @@ const tailLayout = {
 
 
 
-const TaskInput=  ({message, setMessage, handleCreate}: Props) => {
+const TaskInput=  ({message, date,befores, setBefores, setMessage, setDate,handleCreate}: Props) => {
     // const inputRef = useRef<HTMLInputElement>(null);
     const [form] = Form.useForm();
 
 
-    const onFinish = (values: any) =>
-    {
-        console.log(values);
-        form.resetFields();
-        // handleCreate(e);
+    // const onFinish = (values: any) =>
+    // {
+    //     console.log(values);
+    //     form.resetFields();
+    //     // handleCreate(e);
+    // }
+
+    const handleFinish = (e: React.FormEvent) =>{
+        console.log('Finish:', e);
+
     }
 
     const onReset = () => {
@@ -42,21 +51,41 @@ const TaskInput=  ({message, setMessage, handleCreate}: Props) => {
                 {...layout}
                 form={form}
                 name="control-hooks"
-                onFinish={onFinish}
+                onFinish={(e) => {handleCreate(e); handleFinish(e);}}
                 style={{ maxWidth: 600 }}
             >
                 <Form.Item name="message" label="Название" rules={[{ required: true }]}>
-                    <Input />
+                    <Input onChange={ (e) => setMessage(e.target.value) } value={message}/>
+                </Form.Item>
+                <Form.Item name="dateInput" label="Дата" rules={[{ required: true }]}>
+                    <Input  placeholder="1970-01-01" onChange={(e)=> setDate(e.target.value)} value = {date}/>
                 </Form.Item>
                 <Form.Item name="before" label="Сообщить за" rules={[{ required: true }]} style={{ minWidth: 300}}>
-                    <Select
-                        placeholder="за сколько дней сообщить"
-                        allowClear
-                    >
-                        <Option value="1">1</Option>
-                        <Option value="3">3</Option>
-                        <Option value="5">5</Option>
-                    </Select>
+                        <Checkbox.Group onChange={(values) => setBefores(values)} value={befores}>
+                            <Row>
+                                <Col span={8}>
+                                    <Checkbox value="1" style={{ lineHeight: '32px' }}>
+                                        1
+                                    </Checkbox>
+                                </Col>
+                                <Col span={8}>
+                                    <Checkbox value="3" style={{ lineHeight: '32px' }} >
+                                        3
+                                    </Checkbox>
+                                </Col>
+                                <Col span={8}>
+                                    <Checkbox value="5" style={{ lineHeight: '32px' }}>
+                                        5
+                                    </Checkbox>
+                                </Col><Col span={8}>
+                                <Checkbox value="30" style={{ lineHeight: '32px' }}>
+                                    30
+                                </Checkbox>
+                            </Col>
+
+                            </Row>
+                        </Checkbox.Group>
+
                 </Form.Item>
                 <Form.Item {...tailLayout}>
                     <Space>
@@ -69,15 +98,6 @@ const TaskInput=  ({message, setMessage, handleCreate}: Props) => {
                     </Space>
                 </Form.Item>
             </Form>
-            {/*<form className="inputPanel" onSubmit={(e) => {*/}
-            {/*    handleCreate(e);*/}
-            {/*    inputRef.current?.blur()*/}
-            {/*}}>*/}
-            {/*    <input ref={inputRef} className="taskInput" type="text" placeholder={"Что будет?..."} value={reminder}*/}
-            {/*           onChange={(event) => setReminder(event.target.value)}></input>*/}
-            {/*    <button className="taskInputButton" type="submit"> Create</button>*/}
-
-            {/*</form>*/}
         </div>
 
     )
