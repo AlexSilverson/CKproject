@@ -17,12 +17,12 @@ const ProfilePage: React.FC = () => {
         console.log(reminders);
     }
 
-    return ( <>
+    return ( <div className="appContainer">
 
             <ReminderInput message={message} date = {date} befores={befores} setBefores={setBefores} setDate={setDate} setMessage={setMessage} handleCreate={handleCreate}/>
             <RemindersList reminders={reminders} setReminds={setReminders}/>
             {/*<ReminderCard remind={message} reminds={remind[]} setReminds={}/>*/}
-        </>
+        </div>
         )
 }
 

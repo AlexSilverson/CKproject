@@ -8,7 +8,7 @@ interface Props {
     setReminds:  React.Dispatch<React.SetStateAction<RemindInfo[]>>
 }
 const RemindersList:React.FC<Props> = ({reminders, setReminds}:Props) =>{
-    return <div className="tasks">
+    return <div className="reminders">
         {reminders.map(remind =>(
             <ReminderCard remind={remind} key={remind.id} reminds={reminders} setReminds={setReminds}
             />
