@@ -12,37 +12,46 @@ type FieldType = {
 
 
 
-const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    const [jwt, setJwt] = useState<string>();
-    fetch('http://localhost:8081/login', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            login: values.username,
-            password: values.password,
-        }),
-    })
-        .then(response => response.json())
-        .then(data => {
-            setJwt(`${data.result}`);
-            console.log(data.result, jwt);
-        })
-        .catch(error => {
-            console.error(error);
-            setJwt('Произошла ошибка при выполнении поиска');
-        });
-};
 
-const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
 
 function LoginPage(){
 
+
+    const [jwt, setJwt] = useState<string>();
     const [password, setPassword] = useState<string>('');
     const [username, setUsername] = useState<string>('');
+
+
+
+
+    const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+
+        fetch('http://localhost:8081/login', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                login: values.username,
+                password: values.password,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                setJwt(`${data.result}`);
+                console.log(data.result, jwt);
+            })
+            .catch(error => {
+                console.error(error);
+                setJwt('Произошла ошибка при выполнении поиска');
+            });
+    };
+
+    const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
+
+
     return(
         <div className="loginForm">
 
