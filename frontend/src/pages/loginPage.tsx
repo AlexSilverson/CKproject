@@ -10,10 +10,6 @@ type FieldType = {
 };
 
 
-
-
-
-
 function LoginPage(){
 
 
@@ -30,14 +26,13 @@ function LoginPage(){
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                login: values.username,
-                password: values.password,
-            }),
+                'login': values.username,
+                'password': values.password,
+            }
         })
             .then(response => response.json())
             .then(data => {
+                localStorage.setItem('jwt', data.result);
                 setJwt(`${data.result}`);
                 console.log(data.result, jwt);
             })
